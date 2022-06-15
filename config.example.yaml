@@ -1,0 +1,53 @@
+relp:
+  # Address and port on which the RELP service listens
+  listen: 0.0.0.0:1514
+
+  # Path to the certificate file for secure connection
+  certificate: /config/certificate.pem
+
+  # Path to the private key for secure connection
+  private-key: /config/private-key.pem
+
+  # Path to the certificate authority's certificate
+  ca: /config/ca.pem
+
+  # ACL rules
+  # Value is a wildcard applied on client certificate CN. Action
+  # is allow or deny.
+  acl:
+    - value: log-zone-75
+      action: reject
+    - value: log-zone-*
+      action: accept
+    - value: '*'
+      action: reject
+
+clickhouse:
+  # List of address and port of the ClickHouse servers
+  target:
+    - '127.0.0.1:9000'
+
+spool:
+  # Directory where the log spool will be stored
+  path: /data
+
+  # Maximum number of logs to store in memory before dumping them to disk
+  # when log are stored in the spool, a sync() is done, so if this value
+  # is too low, many sync are called and the system will perform too
+  # many writes on disk. If the value is too high, log are not acquited
+  # and the client can't flush.
+  max-logs: 10000
+
+  # Maximum idle time to wait for a client before dumping logs to disk
+  max-idle: 1s
+
+dispatch:
+  # Minimum number of logs required for the dispatcher to start processing
+  min-logs: 10000
+
+  # Maximum time to wait to reach the minimum log threshold. After this
+  # time, spooled logs are processed by the dispatcher.
+  max-wait: 10s
+
+  # Interval at which the dispatcher checks for new logs in the spool
+  check-interval: 1s
