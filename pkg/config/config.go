@@ -49,6 +49,10 @@ type Dispatch struct {
 	CheckInterval time.Duration `yaml:"check-interval"`
 }
 
+type Plugins struct {
+	Path []string `yaml:"path"`
+}
+
 type Config struct {
 	RELP       RELP        `yaml:"relp"`
 	Clickhouse *Clickhouse `yaml:"clickhouse"`
@@ -56,6 +60,7 @@ type Config struct {
 	SQLite     *SQLite     `yaml:"sqlite"`
 	Spool      Spool       `yaml:"spool"`
 	Dispatch   Dispatch    `yaml:"dispatch"`
+	Plugins    Plugins     `yaml:"plugins"`
 }
 
 var Cf Config

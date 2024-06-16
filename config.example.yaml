@@ -51,3 +51,8 @@ dispatch:
 
   # Interval at which the dispatcher checks for new logs in the spool
   check-interval: 1s
+
+plugins:
+  # List of plugin paths
+  path:
+    - /path/to/plugin
